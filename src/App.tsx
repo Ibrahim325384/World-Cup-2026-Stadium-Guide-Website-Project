@@ -20,7 +20,7 @@ import {
 } from './utils/tournamentEngine';
 import { MATCHES } from './data/matches';
 
-const GOOGLE_MAPS_API_KEY = ((import.meta as any).env?.VITE_GOOGLE_MAPS_API_KEY as string) || 'AIzaSyDONJ6hsNXqhNjKGrEqO8yHdFADinIt48o';
+const GOOGLE_MAPS_API_KEY = ((import.meta as any).env?.VITE_GOOGLE_MAPS_API_KEY as string) || '';
 
 export default function App() {
   const [selectedStadium, setSelectedStadium] = useState<Stadium | null>(null);
