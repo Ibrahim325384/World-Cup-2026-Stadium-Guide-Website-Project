@@ -1,0 +1,3 @@
+# This file ensures that the public/images directory is tracked and visible in the workspace file explorer.
+# You can upload or place your custom image assets (such as flags, maps, or stadium pictures) in this folder.
+# They will be served statically at /images/<filename> in your React code (e.g. <img src="/images/my_stadium.jpg" />).

@@ -1,0 +1,10 @@
+{
+  "name": "FIFA World Cup 2026™ Guide",
+  "description": "An interactive guide to the 16 host stadiums of the 2026 FIFA World Cup, featuring local discovery of hotels, restaurants, and attractions near each venue.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
