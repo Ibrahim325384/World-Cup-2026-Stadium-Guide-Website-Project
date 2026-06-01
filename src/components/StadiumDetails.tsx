@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Stadium } from '../data/stadiums';
-import { Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { Map, AdvancedMarker, Pin, useApiLoadingStatus } from '@vis.gl/react-google-maps';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, Store, Utensils, Hotel, Compass, Info, Newspaper, Calendar, Trophy, Car, X, Train, ShieldAlert, Timer, Ban } from 'lucide-react';
+import { ArrowLeft, Store, Utensils, Hotel, Compass, Info, Newspaper, Calendar, Trophy, Car, X, Train, ShieldAlert, Timer, Ban, MapPin, ExternalLink, AlertTriangle } from 'lucide-react';
 import NearbyPlaces from './NearbyPlaces';
 import { getStadiumNews } from '../services/geminiService';
 import MatchCountdown from './MatchCountdown';
+import ErrorBoundary from './ErrorBoundary';
 
 interface StadiumDetailsProps {
   stadium: Stadium;
@@ -20,6 +21,12 @@ export default function StadiumDetails({
   scores, 
   onBack 
 }: StadiumDetailsProps) {
+  const apiLoadingStatus = useApiLoadingStatus();
+  const isAdvancedMarkerAvailable = typeof window !== 'undefined' && 
+    !!(window as any).google?.maps?.marker?.AdvancedMarkerElement;
+  const isMapError = apiLoadingStatus as string === 'failed' || 
+    (apiLoadingStatus as string === 'loaded' && !isAdvancedMarkerAvailable);
+
   const [news, setNews] = useState<string[]>([]);
   const [activeCategory, setActiveCategory] = useState<'restaurant' | 'hotel' | 'attraction' | 'store' | 'parking' | 'emergency'>('restaurant');
   const [isAccessGuideOpen, setIsAccessGuideOpen] = useState(false);
@@ -117,17 +124,134 @@ export default function StadiumDetails({
 
         {/* Top Right: Map Card */}
         <div className="lg:col-span-2 row-span-1 h-[450px] lg:h-auto rounded-[3rem] overflow-hidden border border-slate-800 relative shadow-2xl">
-           <Map
-              defaultCenter={{ lat: stadium.lat, lng: stadium.lng }}
-              defaultZoom={15}
-              mapId="126216ef8f96b24347eca2b0"
-              internalUsageAttributionIds= {['gmp_mcp_codeassist_v1_aistudio']}
-              className="w-full h-full grayscale-[20%] brightness-[70%] contrast-[120%]"
-           >
-              <AdvancedMarker position={{ lat: stadium.lat, lng: stadium.lng }}>
-                 <Pin background="#6366f1" glyphColor="#fff" borderColor="#4338ca" />
-              </AdvancedMarker>
-           </Map>
+          <ErrorBoundary 
+            fallback={
+              <div className="w-full h-full min-h-[400px] bg-slate-900 border border-slate-800 rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:16px_16px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-indigo-500/10 pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-indigo-500/5 pointer-events-none" />
+                
+                <div className="space-y-6 relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400">
+                    <AlertTriangle className="w-3.5 h-3.5 animate-pulse" />
+                    <span className="text-[9px] font-black uppercase tracking-widest font-mono">
+                      Security Exception Blocked
+                    </span>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-black uppercase tracking-tight text-white italic">
+                      Domain Referrer Restriction
+                    </h3>
+                    <p className="text-slate-400 text-xs leading-relaxed font-semibold max-w-md">
+                      The Google Maps API key has restrictions that block loading the interactive map here.
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-950/80 border border-slate-900/60 p-5 rounded-2xl max-w-md text-[10px] text-slate-400 space-y-2 leading-relaxed">
+                    <p className="font-extrabold text-white uppercase tracking-wider text-[8px] text-indigo-400">Fix Key Restriction in Google Cloud Console:</p>
+                    <ol className="list-decimal list-inside space-y-1.5 text-slate-300 font-medium">
+                      <li>Open the Google Maps API Keys Settings.</li>
+                      <li>In key restrictions, add this domain as allowed: <br />
+                        <code className="text-indigo-400 font-mono select-all bg-indigo-500/10 px-1.5 py-0.5 rounded leading-none block my-1 font-semibold break-all">{window.location.origin}/*</code>
+                      </li>
+                      <li>Or configure a key with no active origin limits.</li>
+                    </ol>
+                  </div>
+                </div>
+
+                <div className="space-y-4 pt-6 border-t border-slate-800/80 relative z-10 mt-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="space-y-0.5">
+                      <span className="text-[8px] text-indigo-400 uppercase font-black tracking-widest font-mono">Coordinates For Gps</span>
+                      <p className="text-xs text-slate-300 font-bold uppercase">{stadium.name}</p>
+                      <p className="text-[9px] text-slate-500 font-mono">Lat: {stadium.lat} | Lng: {stadium.lng}</p>
+                    </div>
+                    
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${stadium.name} ${stadium.city}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 px-6 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.15em] shadow-lg shadow-indigo-600/15 transition-all duration-300 active:scale-95 cursor-pointer shrink-0"
+                    >
+                      <span>Open on Google Maps</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            }
+            name="StadiumMap"
+          >
+            {isMapError ? (
+              <div className="w-full h-full min-h-[400px] bg-slate-900 border border-slate-800 rounded-[3rem] p-10 flex flex-col justify-between relative overflow-hidden group">
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#4f46e5_1px,transparent_1px)] [background-size:16px_16px]" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-indigo-500/10 pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-indigo-500/5 pointer-events-none" />
+                
+                <div className="space-y-6 relative z-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400">
+                    <AlertTriangle className="w-3.5 h-3.5 animate-pulse" />
+                    <span className="text-[9px] font-black uppercase tracking-widest font-mono">
+                      Google Maps Loading Blocked
+                    </span>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-black uppercase tracking-tight text-white italic">
+                      Domain Referrer Restriction
+                    </h3>
+                    <p className="text-slate-400 text-xs leading-relaxed font-semibold max-w-md">
+                      The current Google Maps API Key blocks requests from this domain name ({window.location.host}).
+                    </p>
+                  </div>
+
+                  <div className="bg-slate-950/80 border border-slate-900/60 p-5 rounded-2xl max-w-md text-[10px] text-slate-400 space-y-2 leading-relaxed">
+                    <p className="font-extrabold text-white uppercase tracking-wider text-[8px] text-indigo-400">Configure key limits in Google Console:</p>
+                    <ol className="list-decimal list-inside space-y-1.5 text-slate-300 font-medium">
+                      <li>Navigate to APIs &amp; Services &gt; Credentials page.</li>
+                      <li>Add this URL origin under HTTP referrers: <br />
+                        <code className="text-indigo-400 font-mono select-all bg-indigo-500/10 px-1.5 py-0.5 rounded leading-none block my-1 font-semibold break-all">{window.location.origin}/*</code>
+                      </li>
+                      <li>Or click below to view the official Google Maps guide directly.</li>
+                    </ol>
+                  </div>
+                </div>
+
+                <div className="space-y-4 pt-6 border-t border-slate-800/80 relative z-10 mt-6 animate-in fade-in duration-300">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="space-y-0.5">
+                      <span className="text-[8px] text-indigo-400 uppercase font-black tracking-widest font-mono">Venue GPS Placement</span>
+                      <p className="text-xs text-slate-300 font-bold uppercase">{stadium.name}</p>
+                      <p className="text-[9px] text-slate-500 font-mono">Lat: {stadium.lat} | Lng: {stadium.lng}</p>
+                    </div>
+                    
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${stadium.name} ${stadium.city}`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 px-6 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.15em] shadow-lg shadow-indigo-600/15 transition-all duration-300 active:scale-95 cursor-pointer shrink-0"
+                    >
+                      <span>Open on Google Maps</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Map
+                 defaultCenter={{ lat: stadium.lat, lng: stadium.lng }}
+                 defaultZoom={15}
+                 mapId="126216ef8f96b24347eca2b0"
+                 internalUsageAttributionIds= {['gmp_mcp_codeassist_v1_aistudio']}
+                 className="w-full h-full grayscale-[20%] brightness-[70%] contrast-[120%]"
+              >
+                 <AdvancedMarker position={{ lat: stadium.lat, lng: stadium.lng }}>
+                    <Pin background="#6366f1" glyphColor="#fff" borderColor="#4338ca" />
+                 </AdvancedMarker>
+              </Map>
+            )}
+          </ErrorBoundary>
         </div>
 
         {/* Mid Right: News Bento */}
