@@ -91,7 +91,7 @@ export default function TournamentDashboard({
             <div className="h-0.5 w-12 bg-indigo-500" />
             <span className="text-[10px] uppercase font-black tracking-[0.3em] text-indigo-400">Schedule & Fixtures</span>
           </div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] italic text-white/95">
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] italic text-slate-100 opacity-95">
             Tournament <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-indigo-400 to-indigo-600">Schedules</span>
           </h1>
           <p className="text-slate-400 text-lg max-w-2xl font-medium">
@@ -193,7 +193,7 @@ export default function TournamentDashboard({
                   <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400 font-mono">
                     Match #{match.matchNumber}
                   </span>
-                  <span className="text-[11px] font-extrabold text-white/90 uppercase tracking-tight">
+                  <span className="text-[11px] font-extrabold text-slate-100 opacity-90 uppercase tracking-tight">
                     {match.stage}
                   </span>
                 </div>
@@ -209,7 +209,7 @@ export default function TournamentDashboard({
               <div className="flex items-center justify-center gap-12 py-3 bg-slate-950/45 border border-slate-850/60 rounded-2xl px-4 relative">
                 {/* Home Team */}
                 <div className="flex items-center justify-end flex-1 min-w-0 text-right">
-                  <span className="text-xs font-black text-white uppercase tracking-tight truncate" title={match.resolvedHomeTeam}>
+                  <span className="text-xs font-black text-slate-100 uppercase tracking-tight truncate" title={match.resolvedHomeTeam}>
                     {match.resolvedHomeTeam}
                   </span>
                 </div>
@@ -223,7 +223,7 @@ export default function TournamentDashboard({
 
                 {/* Away Team */}
                 <div className="flex items-center justify-start flex-1 min-w-0 text-left">
-                  <span className="text-xs font-black text-white uppercase tracking-tight truncate" title={match.resolvedAwayTeam}>
+                  <span className="text-xs font-black text-slate-100 uppercase tracking-tight truncate" title={match.resolvedAwayTeam}>
                     {match.resolvedAwayTeam}
                   </span>
                 </div>

@@ -55,7 +55,7 @@ export default function About() {
             <Trophy className="w-5 h-5" />
             <span className="text-xs font-bold uppercase tracking-[0.2em]">Tournament Profile</span>
           </div>
-          <h1 className="text-6xl font-black uppercase tracking-tighter leading-none italic text-white text-white-always">
+          <h1 className="text-6xl font-black uppercase tracking-tighter leading-none italic text-slate-100">
             About the <span className="text-[#F27D26] block sm:inline">2026 World Cup</span>
           </h1>
           <p className="text-slate-400 max-w-2xl font-medium text-sm md:text-base">
@@ -65,7 +65,7 @@ export default function About() {
         <div className="flex gap-4">
           <div className="px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl">
             <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight">Total Match Count</p>
-            <p className="text-xl font-mono font-black text-white text-white-always">104 Matches</p>
+            <p className="text-xl font-mono font-black text-slate-100">104 Matches</p>
           </div>
           <div className="px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl">
             <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight">Expanded Field</p>
@@ -127,7 +127,7 @@ export default function About() {
                   <div className="w-12 h-12 rounded-2xl bg-[#F27D26]/10 flex items-center justify-center text-[#F27D26] group-hover:scale-110 transition-transform">
                     <Earth className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-bold uppercase tracking-tight text-white text-white-always">Tri-Nation Host</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-tight text-slate-100">Tri-Nation Host</h3>
                   <p className="text-sm text-slate-400 leading-relaxed font-medium">
                     Co-hosted by Canada, Mexico, and the United States. An incredible continent-wide integration spanning three currencies, three timezones, and various diverse climates.
                   </p>
@@ -143,7 +143,7 @@ export default function About() {
                   <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
                     <Users className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-bold uppercase tracking-tight text-white text-white-always">48 Nations</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-tight text-slate-100">48 Nations</h3>
                   <p className="text-sm text-slate-400 leading-relaxed font-medium">
                     The tournament welcomes an expanded field of 48 teams instead of 32. This provides extra representation for Asia, Africa, South America, North America, Oceania, and Europe.
                   </p>
@@ -159,7 +159,7 @@ export default function About() {
                   <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
                     <Layers className="w-6 h-6" />
                   </div>
-                  <h3 className="text-2xl font-bold uppercase tracking-tight text-white text-white-always">104 Live Fixtures</h3>
+                  <h3 className="text-2xl font-bold uppercase tracking-tight text-slate-100">104 Live Fixtures</h3>
                   <p className="text-sm text-slate-400 leading-relaxed font-medium">
                     More tactical battles across 39 action-packed days. The event is custom-engineered to minimize athlete travel distress while delivering maximum high-stakes action.
                   </p>
@@ -198,7 +198,7 @@ export default function About() {
 
             {/* General FAQs Container */}
             <div className="space-y-6">
-              <h3 className="text-2xl font-black uppercase tracking-tight text-white text-white-always flex items-center gap-2">
+              <h3 className="text-2xl font-black uppercase tracking-tight text-slate-100 flex items-center gap-2">
                 <HelpCircle className="w-6 h-6 text-[#F27D26]" />
                 Frequently Asked Questions
               </h3>
@@ -210,7 +210,7 @@ export default function About() {
                     onClick={() => toggleFaq(i)}
                   >
                     <div className="flex items-center justify-between gap-4">
-                      <p className="text-sm font-bold text-white text-white-always uppercase tracking-tight">{faq.question}</p>
+                      <p className="text-sm font-bold text-slate-100 uppercase tracking-tight">{faq.question}</p>
                       <ChevronRight className={`w-4 h-4 text-indigo-400 shrink-0 transition-transform ${faqOpen === i ? 'rotate-90' : ''}`} />
                     </div>
                     {faqOpen === i && (
@@ -249,7 +249,7 @@ export default function About() {
                     <span className="px-3 py-1 bg-red-600/10 border border-red-600/20 text-[9px] font-black uppercase tracking-widest text-red-400 rounded-full">Canada</span>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-3xl font-black uppercase tracking-tight italic text-white text-white-always">2 Host Cities</h4>
+                    <h4 className="text-3xl font-black uppercase tracking-tight italic text-slate-100">2 Host Cities</h4>
                     <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">Vancouver • Toronto</p>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-semibold">
@@ -277,7 +277,7 @@ export default function About() {
                     <span className="px-3 py-1 bg-emerald-600/10 border border-emerald-600/20 text-[9px] font-black uppercase tracking-widest text-[#2e7d32] dark:text-emerald-400 rounded-full">Mexico</span>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-3xl font-black uppercase tracking-tight italic text-white text-white-always">3 Host Cities</h4>
+                    <h4 className="text-3xl font-black uppercase tracking-tight italic text-slate-100">3 Host Cities</h4>
                     <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">CDMX • Monterrey • GDL</p>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-semibold">
@@ -305,7 +305,7 @@ export default function About() {
                     <span className="px-3 py-1 bg-indigo-600/10 border border-indigo-600/20 text-[9px] font-black uppercase tracking-widest text-indigo-400 rounded-full">United States</span>
                   </div>
                   <div className="space-y-2">
-                    <h4 className="text-3xl font-black uppercase tracking-tight italic text-white text-white-always">11 Host Cities</h4>
+                    <h4 className="text-3xl font-black uppercase tracking-tight italic text-slate-100">11 Host Cities</h4>
                     <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">coast-to-coast hubs</p>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed font-semibold">
@@ -328,7 +328,7 @@ export default function About() {
             {/* Stadium Host Cities List Grid */}
             <div className="bg-slate-900 border border-slate-800 p-8 rounded-[2.5rem] space-y-6">
               <div className="space-y-2">
-                <h4 className="text-xl font-black uppercase tracking-tight text-white text-white-always flex items-center gap-2">
+                <h4 className="text-xl font-black uppercase tracking-tight text-slate-100 flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-indigo-400" />
                   List of 16 Host Cities & Corresponding Venues
                 </h4>
@@ -393,7 +393,7 @@ export default function About() {
                 <span className="px-3 py-1 bg-[#F27D26]/10 border border-[#F27D26]/20 text-[9px] font-black uppercase tracking-[0.2em] text-[#F27D26] rounded-full w-fit block">
                   How It Works
                 </span>
-                <h3 className="text-4xl font-black uppercase tracking-tighter leading-none italic text-white text-white-always">
+                <h3 className="text-4xl font-black uppercase tracking-tighter leading-none italic text-slate-100">
                   The Journey to <br /> <span className="text-indigo-400">Glory Expanded</span>
                 </h3>
                 <p className="text-xs md:text-sm text-slate-400 leading-relaxed font-semibold">
@@ -424,7 +424,7 @@ export default function About() {
               <div className="bg-slate-900/60 border border-slate-800 p-8 rounded-[2rem] space-y-4">
                 <div className="flex items-center gap-2 text-indigo-400">
                   <Sparkles className="w-5 h-5" />
-                  <h4 className="text-lg font-black uppercase tracking-tight text-white text-white-always">Group Stage Drama</h4>
+                  <h4 className="text-lg font-black uppercase tracking-tight text-slate-100">Group Stage Drama</h4>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed font-semibold">
                   Every team plays exactly three group matches. This format guarantees that every group match is highly consequential. Fans will see unparalleled battles as traditional powerhouses compete to avoid the wildcard 3rd-place comparison.
@@ -438,7 +438,7 @@ export default function About() {
               <div className="bg-slate-900/60 border border-slate-800 p-8 rounded-[2rem] space-y-4">
                 <div className="flex items-center gap-2 text-emerald-400">
                   <Flame className="w-5 h-5" />
-                  <h4 className="text-lg font-black uppercase tracking-tight text-white text-white-always">Bigger Rest Cycles</h4>
+                  <h4 className="text-lg font-black uppercase tracking-tight text-slate-100">Bigger Rest Cycles</h4>
                 </div>
                 <p className="text-xs text-slate-400 leading-relaxed font-semibold">
                   Despite the increased field size, the scheduling preserves healthy recovery timelines for athletes. Teams are assigned geographical clusters to decrease air travel hours between match days, making game conditions fair and safe.

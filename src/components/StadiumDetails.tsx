@@ -297,7 +297,7 @@ export default function StadiumDetails({
                 <Trophy className="w-5 h-5 animate-bounce" />
                 <span className="text-[10px] font-black uppercase tracking-[0.25em]">FIFA World Cup 2026™ Schedule</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white italic">
+              <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-slate-100 italic">
                 Stadium <span className="text-indigo-400">Fixtures</span>
               </h2>
             </div>
@@ -323,7 +323,7 @@ export default function StadiumDetails({
                     <span className="text-[9px] font-black uppercase tracking-widest text-indigo-400 font-mono">
                       Match {match.matchNumber}
                     </span>
-                    <span className="text-[11px] font-extrabold text-white/90 uppercase tracking-tight">
+                    <span className="text-[11px] font-extrabold text-slate-100 opacity-90 uppercase tracking-tight">
                       {match.stage}
                     </span>
                   </div>
@@ -339,7 +339,7 @@ export default function StadiumDetails({
                   {/* Home Team */}
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-sm font-black text-white uppercase tracking-tight truncate">
+                      <span className="text-sm font-black text-slate-100 uppercase tracking-tight truncate">
                         {match.resolvedHomeTeam || match.homeTeam}
                       </span>
                     </div>
@@ -362,7 +362,7 @@ export default function StadiumDetails({
                   {/* Away Team */}
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2.5">
-                      <span className="text-sm font-black text-white uppercase tracking-tight truncate">
+                      <span className="text-sm font-black text-slate-100 uppercase tracking-tight truncate">
                         {match.resolvedAwayTeam || match.awayTeam}
                       </span>
                     </div>
