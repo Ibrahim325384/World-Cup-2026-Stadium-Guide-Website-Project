@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import Logo from './Logo';
 import { 
   Trophy, 
   MapPin, 
@@ -49,27 +50,38 @@ export default function About() {
   return (
     <div className="max-w-6xl mx-auto py-8 px-4 space-y-12">
       {/* Page Header */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 text-indigo-400">
-            <Trophy className="w-5 h-5" />
-            <span className="text-xs font-bold uppercase tracking-[0.2em]">Tournament Profile</span>
+      <header className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 border-b border-white/10 pb-10">
+        <div className="flex flex-col sm:flex-row items-start gap-6 max-w-3xl">
+          <motion.div 
+            initial={{ rotate: -5, scale: 0.92, opacity: 0 }}
+            animate={{ rotate: 0, scale: 1, opacity: 1 }}
+            whileHover={{ scale: 1.06, rotate: 3, y: -4 }}
+            transition={{ type: "spring", stiffness: 180, damping: 12, delay: 0.1 }}
+            className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 shrink-0 cursor-pointer"
+          >
+            <Logo className="w-full h-full drop-shadow-[0_12px_24px_rgba(0,75,175,0.3)]" />
+          </motion.div>
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 text-indigo-400">
+              <Trophy className="w-5 h-5" />
+              <span className="text-xs font-bold uppercase tracking-[0.2em]">Tournament Profile</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none italic text-slate-100">
+              About the <span className="text-[#F27D26] block sm:inline">2026 World Cup</span>
+            </h1>
+            <p className="text-slate-400 font-medium text-sm md:text-base leading-relaxed">
+              Discover the unprecedented scale, structure, and cooperative spirit behind the first tri-nation FIFA World Cup in history.
+            </p>
           </div>
-          <h1 className="text-6xl font-black uppercase tracking-tighter leading-none italic text-slate-100">
-            About the <span className="text-[#F27D26] block sm:inline">2026 World Cup</span>
-          </h1>
-          <p className="text-slate-400 max-w-2xl font-medium text-sm md:text-base">
-            Discover the unprecedented scale, structure, and cooperative spirit behind the first tri-nation FIFA World Cup in history.
-          </p>
         </div>
-        <div className="flex gap-4">
-          <div className="px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl">
-            <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight">Total Match Count</p>
-            <p className="text-xl font-mono font-black text-slate-100">104 Matches</p>
+        <div className="flex gap-4 self-stretch sm:self-auto justify-end">
+          <div className="px-5 py-3 bg-slate-900 border border-slate-800 rounded-2xl shadow-lg shadow-black/20">
+            <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight mb-1">Total Match Count</p>
+            <p className="text-2xl font-mono font-black text-slate-100">104 Matches</p>
           </div>
-          <div className="px-4 py-2.5 bg-slate-900 border border-slate-800 rounded-xl">
-            <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight">Expanded Field</p>
-            <p className="text-xl font-mono font-black text-indigo-400">48 Teams</p>
+          <div className="px-5 py-3 bg-slate-900 border border-slate-800 rounded-2xl shadow-lg shadow-black/20">
+            <p className="text-[10px] text-gray-500 uppercase tracking-widest leading-tight mb-1">Expanded Field</p>
+            <p className="text-2xl font-mono font-black text-indigo-400">48 Teams</p>
           </div>
         </div>
       </header>

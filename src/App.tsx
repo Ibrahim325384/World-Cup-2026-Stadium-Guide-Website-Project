@@ -19,6 +19,7 @@ import {
   computeResolvedMatches 
 } from './utils/tournamentEngine';
 import { MATCHES } from './data/matches';
+import Logo from './components/Logo';
 
 const GOOGLE_MAPS_API_KEY = 
   (process.env.GOOGLE_MAPS_PLATFORM_KEY as string) ||
@@ -67,9 +68,9 @@ export default function App() {
     <APIProvider apiKey={GOOGLE_MAPS_API_KEY} version="weekly">
       <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-indigo-500 selection:text-white">
         {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-900 px-8 py-5 flex items-center justify-between">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-slate-900 px-8 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => { setSelectedStadium(null); setActiveTab('stadiums'); }}>
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">26</div>
+            <Logo className="w-11 h-11 transition-transform duration-300 group-hover:scale-105" />
             <h1 className="text-xl font-black tracking-tighter uppercase text-white italic">World Cup <span className="text-indigo-400">2026</span></h1>
           </div>
           
