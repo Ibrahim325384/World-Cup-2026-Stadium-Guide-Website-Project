@@ -16,7 +16,9 @@ import { Trophy, MapPin, Newspaper, Tickets, ExternalLink, Coins, Sun, Moon } fr
 import { cn } from './lib/utils';
 import { 
   computeStandings, 
-  computeResolvedMatches 
+  computeResolvedMatches,
+  isMatchCompleted,
+  getSimulatedScore
 } from './utils/tournamentEngine';
 import { MATCHES } from './data/matches';
 import Logo from './components/Logo';
@@ -54,7 +56,16 @@ export default function App() {
     }
   }, [isLightMode]);
 
-  const [userOverrides, setUserOverrides] = useState<Record<string, { homeScore: number; awayScore: number }>>({});
+  const [userOverrides, setUserOverrides] = useState<Record<string, { homeScore: number; awayScore: number }>>(() => {
+    const initialScores: Record<string, { homeScore: number; awayScore: number }> = {};
+    const referenceDate = new Date();
+    MATCHES.forEach(match => {
+      if (isMatchCompleted(match.date, match.time, referenceDate)) {
+        initialScores[match.id] = getSimulatedScore(match.id);
+      }
+    });
+    return initialScores;
+  });
 
   const scores = useMemo(() => {
     return userOverrides;
@@ -203,6 +214,7 @@ export default function App() {
               >
                 <TournamentDashboard 
                   onSelectStadium={(stadium) => { setSelectedStadium(stadium); setActiveTab('stadiums'); }} 
+                  scores={scores}
                 />
               </motion.div>
             ) : activeTab === 'about' ? (

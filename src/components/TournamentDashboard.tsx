@@ -22,7 +22,8 @@ interface TournamentDashboardProps {
 }
 
 export default function TournamentDashboard({ 
-  onSelectStadium 
+  onSelectStadium,
+  scores = {}
 }: TournamentDashboardProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedStadiumId, setSelectedStadiumId] = useState<string>('all');
@@ -37,15 +38,15 @@ export default function TournamentDashboard({
     return map;
   }, []);
 
-  // Compute standings with empty scores (for static placeholders to render properly)
+  // Compute standings with the current scores
   const standings = useMemo(() => {
-    return computeStandings({});
-  }, []);
+    return computeStandings(scores);
+  }, [scores]);
 
   // Dynamically resolve qualified placeholder paths for future knockouts
   const resolvedMatches = useMemo(() => {
-    return computeResolvedMatches({}, standings);
-  }, [standings]);
+    return computeResolvedMatches(scores, standings);
+  }, [scores, standings]);
 
   // Filtered upcoming schedule
   const filteredMatches = useMemo(() => {
@@ -206,23 +207,37 @@ export default function TournamentDashboard({
               </div>
 
               {/* Match Schedule block */}
-              <div className="flex items-center justify-center gap-12 py-3 bg-slate-950/45 border border-slate-850/60 rounded-2xl px-4 relative">
+              <div className="flex items-center justify-between py-3 bg-slate-950/45 border border-slate-850/60 rounded-2xl px-5 relative">
                 {/* Home Team */}
-                <div className="flex items-center justify-end flex-1 min-w-0 text-right">
+                <div className="flex items-center justify-end flex-1 min-w-0 text-right pr-2">
                   <span className="text-xs font-black text-slate-100 uppercase tracking-tight truncate" title={match.resolvedHomeTeam}>
                     {match.resolvedHomeTeam}
                   </span>
                 </div>
 
-                {/* VS Divider */}
-                <div className="flex flex-col items-center shrink-0">
-                  <span className="text-[8px] font-black px-2.5 py-1 bg-indigo-600/10 text-indigo-400 border border-indigo-500/15 rounded-full uppercase tracking-wider font-mono">
-                    VS
-                  </span>
-                </div>
+                {/* Score or VS Divider */}
+                {scores[match.id] ? (
+                  <div className="flex items-center gap-2.5 shrink-0 px-2">
+                    <span className="font-mono text-xs font-black text-indigo-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded-md min-w-[20px] text-center">
+                      {scores[match.id].homeScore}
+                    </span>
+                    <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider">
+                      FT
+                    </span>
+                    <span className="font-mono text-xs font-black text-indigo-400 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded-md min-w-[20px] text-center">
+                      {scores[match.id].awayScore}
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center shrink-0">
+                    <span className="text-[8px] font-black px-2.5 py-1 bg-indigo-600/10 text-indigo-400 border border-indigo-500/15 rounded-full uppercase tracking-wider font-mono">
+                      VS
+                    </span>
+                  </div>
+                )}
 
                 {/* Away Team */}
-                <div className="flex items-center justify-start flex-1 min-w-0 text-left">
+                <div className="flex items-center justify-start flex-1 min-w-0 text-left pl-2">
                   <span className="text-xs font-black text-slate-100 uppercase tracking-tight truncate" title={match.resolvedAwayTeam}>
                     {match.resolvedAwayTeam}
                   </span>
@@ -256,8 +271,16 @@ export default function TournamentDashboard({
                 </div>
 
                 <div className="pt-2 border-t border-slate-950 flex justify-between items-center">
-                  <span className="text-[9px] font-black uppercase text-indigo-400/40 font-mono tracking-wider">Countdown</span>
-                  <MatchCountdown dateStr={match.date} timeStr={match.time} />
+                  <span className="text-[9px] font-black uppercase text-indigo-400/40 font-mono tracking-wider">
+                    {scores[match.id] ? "Status" : "Countdown"}
+                  </span>
+                  {scores[match.id] ? (
+                    <span className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded animate-pulse">
+                      Concluded
+                    </span>
+                  ) : (
+                    <MatchCountdown dateStr={match.date} timeStr={match.time} />
+                  )}
                 </div>
               </div>
             </motion.div>
