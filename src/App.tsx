@@ -5,6 +5,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { APIProvider } from '@vis.gl/react-google-maps';
+import { Analytics } from '@vercel/analytics/react';
 import { STADIUMS, Stadium } from './data/stadiums';
 import StadiumList from './components/StadiumList';
 import StadiumDetails from './components/StadiumDetails';
@@ -281,6 +282,7 @@ export default function App() {
           </AnimatePresence>
         </main>
       </div>
+      <Analytics />
     </APIProvider>
   );
 }
